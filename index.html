@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Ghali Food</title>
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#100D0C;
+    --charcoal:#1C1815;
+    --yellow:#F5B301;
+    --red:#C81D25;
+    --cream:#F4EFE6;
+    --stripe-size: 42px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Work Sans', sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- stripe divider (signature element) ---------- */
+  .stripe-bar{
+    height:14px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--yellow) 0px,
+      var(--yellow) 22px,
+      var(--red) 22px,
+      var(--red) 44px
+    );
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(16,13,12,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:2px solid var(--charcoal);
+  }
+  .nav-wrap{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+  }
+  .logo{
+    display:flex;
+    flex-direction:column;
+    line-height:0.85;
+  }
+  .logo .l1{font-size:1.9rem; color:var(--cream);}
+  .logo .l2{font-size:1.9rem; color:var(--yellow);}
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:32px;
+  }
+  nav a{
+    font-weight:600;
+    font-size:0.9rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--cream);
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav a::after{
+    content:'';
+    position:absolute; left:0; bottom:0;
+    width:0; height:2px;
+    background:var(--red);
+    transition:width 0.25s ease;
+  }
+  nav a:hover::after{width:100%;}
+  .nav-toggle{display:none;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:100px 24px 110px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(200,29,37,0.25), transparent 55%),
+      var(--black);
+  }
+  .hero .eyebrow{
+    display:inline-block;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--yellow);
+    border:1px solid var(--yellow);
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:28px;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 11vw, 8rem);
+    color:var(--cream);
+    line-height:0.92;
+  }
+  .hero h1 span{color:var(--red); -webkit-text-stroke:2px var(--yellow); }
+  .hero p.tagline{
+    max-width:560px;
+    margin:26px auto 0;
+    font-size:1.1rem;
+    color:#cfc7ba;
+  }
+  .hero-ctas{
+    margin-top:40px;
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 30px;
+    font-weight:700;
+    font-size:0.95rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    border-radius:6px;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{
+    background:var(--red);
+    color:var(--cream);
+    box-shadow:0 6px 0 #7c1216;
+  }
+  .btn-primary:hover{box-shadow:0 8px 0 #7c1216;}
+  .btn-outline{
+    background:transparent;
+    border-color:var(--yellow);
+    color:var(--yellow);
+  }
+  .btn-outline:hover{background:var(--yellow); color:var(--black);}
+
+  /* ---------- section shells ---------- */
+  section{padding:90px 24px;}
+  .section-inner{max-width:1100px; margin:0 auto;}
+  .kicker{
+    color:var(--yellow);
+    font-weight:700;
+    font-size:0.8rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .section-title{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    color:var(--cream);
+    margin-bottom:22px;
+  }
+
+  /* ---------- about ---------- */
+  .about{
+    background:var(--charcoal);
+  }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about p{
+    color:#d8d0c3;
+    font-size:1.05rem;
+    line-height:1.75;
+    margin-bottom:18px;
+  }
+  .badge-seal{
+    justify-self:center;
+    width:240px; height:240px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    box-shadow:0 0 0 6px var(--black), 0 0 40px rgba(245,179,1,0.25);
+    transition:transform 0.4s ease;
+  }
+  .badge-seal:hover{transform:rotate(8deg) scale(1.03);}
+  @media (prefers-reduced-motion: reduce){
+    .badge-seal{transition:none;}
+  }
+
+  /* ---------- find us ---------- */
+  .find{
+    background:var(--black);
+  }
+  .find-grid{
+    display:grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap:44px;
+    align-items:stretch;
+  }
+  .find-card{
+    background:var(--charcoal);
+    border-radius:12px;
+    padding:36px;
+    border-left:5px solid var(--red);
+  }
+  .find-card .row{
+    display:flex;
+    gap:14px;
+    margin-bottom:22px;
+    align-items:flex-start;
+  }
+  .find-card .row:last-child{margin-bottom:0;}
+  .find-card .row svg{flex-shrink:0; margin-top:3px;}
+  .find-card .row h4{
+    font-family:'Work Sans', sans-serif;
+    font-weight:700;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--yellow);
+    margin-bottom:4px;
+  }
+  .find-card .row p, .find-card .row a{
+    color:#d8d0c3;
+    font-size:0.98rem;
+    line-height:1.5;
+  }
+  .map-frame{
+    border-radius:12px;
+    overflow:hidden;
+    border:3px solid var(--charcoal);
+    min-height:340px;
+  }
+  .map-frame iframe{
+    width:100%; height:100%; min-height:340px;
+    border:0;
+  }
+
+  /* ---------- follow ---------- */
+  .follow{
+    text-align:center;
+    background:
+      linear-gradient(180deg, var(--charcoal), var(--black));
+  }
+  .follow .section-title{margin-bottom:10px;}
+  .follow p.sub{color:#cfc7ba; margin-bottom:44px;}
+  .social-row{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .social-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    width:150px;
+    padding:26px 16px;
+    background:var(--charcoal);
+    border-radius:14px;
+    border:2px solid transparent;
+    transition:border-color 0.2s ease, transform 0.2s ease;
+  }
+  .social-btn:hover{transform:translateY(-4px);}
+  .social-btn.ig:hover{border-color:#E1306C;}
+  .social-btn.fb:hover{border-color:#1877F2;}
+  .social-btn.tt:hover{border-color:var(--yellow);}
+  .social-btn .icon-wrap{
+    width:52px; height:52px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--black);
+  }
+  .social-btn span{
+    font-weight:700;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:44px 24px 30px;
+    text-align:center;
+    background:var(--black);
+    border-top:2px solid var(--charcoal);
+  }
+  footer .logo{
+    align-items:center;
+    margin-bottom:14px;
+  }
+  footer .logo .l1, footer .logo .l2{font-size:1.6rem;}
+  footer p{
+    color:#7c756a;
+    font-size:0.82rem;
+    margin-top:10px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px){
+    .about-grid, .find-grid{grid-template-columns:1fr;}
+    .badge-seal{margin-top:10px;}
+    nav ul{
+      position:fixed;
+      top:64px; right:0;
+      background:var(--charcoal);
+      flex-direction:column;
+      gap:0;
+      width:220px;
+      transform:translateX(100%);
+      transition:transform 0.25s ease;
+      border-radius:8px 0 0 8px;
+      overflow:hidden;
+    }
+    nav ul.open{transform:translateX(0);}
+    nav li{border-bottom:1px solid #2a2521;}
+    nav a{display:block; padding:16px 22px;}
+    .nav-toggle{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      background:none; border:none; cursor:pointer;
+    }
+    .nav-toggle span{width:26px; height:2px; background:var(--cream);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo" style="flex-direction:row; align-items:center; gap:10px;">
+      <img src="assets/logo.jpg" alt="El Ghali Food logo" style="width:44px; height:44px; border-radius:50%; object-fit:cover;">
+      <div style="display:flex; flex-direction:column; line-height:0.85;">
+        <span class="l1">EL GHALI</span>
+        <span class="l2">FOOD</span>
+      </div>
+    </div>
+    <nav>
+      <ul id="navList">
+        <li><a href="#about">About</a></li>
+        <li><a href="#find">Find Us</a></li>
+        <li><a href="#follow">Follow</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="stripe-bar"></div>
+
+<section class="hero">
+  <span class="eyebrow">Beni Khiar · Takeaway</span>
+  <h1>EL GHALI<br><span>FOOD</span></h1>
+  <p class="tagline">Bold flavors, made fast, made with heart. Your neighborhood spot for food worth coming back for.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="tel:+21692153223">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call to Order
+    </a>
+    <a class="btn btn-outline" href="https://maps.app.goo.gl/P4SpXiVbJ7yZXx7R7" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Get Directions
+    </a>
+  </div>
+</section>
+
+<div class="stripe-bar"></div>
+
+<section class="about" id="about">
+  <div class="section-inner about-grid">
+    <div>
+      <div class="kicker">Our Story</div>
+      <h2 class="section-title">Made with heart, served with fire.</h2>
+      <p>El Ghali Food started with one simple idea: real food, made the way it should be, without the wait. Every order is prepared fresh, packed with flavor, and ready to fuel your day.</p>
+      <p>We keep it simple — good ingredients, generous portions, and a taste that keeps you coming back. Whether you're grabbing a quick bite or ordering for the whole crew, El Ghali Food has you covered.</p>
+    </div>
+    <div class="badge-seal">
+      <img src="assets/logo.jpg" alt="El Ghali Food seal" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+    </div>
+  </div>
+</section>
+
+<div class="stripe-bar"></div>
+
+<section class="find" id="find">
+  <div class="section-inner">
+    <div class="kicker">Come See Us</div>
+    <h2 class="section-title">Find El Ghali Food</h2>
+    <div class="find-grid">
+      <div class="find-card">
+        <div class="row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <h4>Address</h4>
+            <p>Av. 14 Janvier 2011, Beni Khiar 8060, Tunisia</p>
+          </div>
+        </div>
+        <div class="row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <h4>Phone</h4>
+            <a href="tel:+21692153223">+216 92 153 223</a>
+          </div>
+        </div>
+        <div class="row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <h4>Hours</h4>
+            <p>Add your opening hours here</p>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps?q=36.4602449,10.7851969&z=16&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-bar"></div>
+
+<section class="follow" id="follow">
+  <div class="section-inner">
+    <div class="kicker">Stay In Touch</div>
+    <h2 class="section-title">Follow El Ghali Food</h2>
+    <p class="sub">New drops, behind-the-scenes, and daily specials — all on socials.</p>
+    <div class="social-row">
+      <a class="social-btn ig" href="https://www.instagram.com/elghalifood/" target="_blank" rel="noopener">
+        <div class="icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F4EFE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <span>Instagram</span>
+      </a>
+      <a class="social-btn fb" href="https://www.facebook.com/profile.php?id=61591577861482" target="_blank" rel="noopener">
+        <div class="icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F4EFE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </div>
+        <span>Facebook</span>
+      </a>
+      <a class="social-btn tt" href="https://www.tiktok.com/@elghali.food" target="_blank" rel="noopener">
+        <div class="icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F4EFE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+        </div>
+        <span>TikTok</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo" style="display:flex; justify-content:center; align-items:center; gap:10px; flex-direction:row;">
+    <img src="assets/logo.jpg" alt="El Ghali Food logo" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+    <span class="l1">EL GHALI&nbsp;</span><span class="l2">FOOD</span>
+  </div>
+  <p>Av. 14 Janvier 2011, Beni Khiar 8060, Tunisia · +216 92 153 223</p>
+  <p>&copy; 2026 El Ghali Food. All rights reserved.</p>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navList = document.getElementById('navList');
+  navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navList.classList.remove('open')));
+</script>
+
+</body>
+</html>
